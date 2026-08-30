@@ -32,7 +32,12 @@ Neither dataset is redistributed in this repo — see `data/raw/README.md` for d
 
 ## Findings
 
-*(to be filled in as the analysis progresses)*
+*(full behavioral findings to come after EDA/modeling — this section documents the data
+enrichment outcome, which is itself a key finding)*
+
+Only ~7% of listening events (1,340,422 of 19,150,868 plays; 20,230 unique tracks) could be
+enriched with Spotify audio features via exact artist+track matching. This is a substantially
+lower coverage rate than initially estimated — see Limitations for why.
 
 ## Limitations
 
@@ -40,8 +45,16 @@ Neither dataset is redistributed in this repo — see `data/raw/README.md` for d
   production logs. Findings describe a reproducible pattern on public data, not a claim about how
   Spotify's current algorithm behaves.
 - Skip labels are inferred (timestamp-gap heuristic), not ground truth.
-- Artist/track fuzzy matching introduces some feature coverage gaps — match quality is documented
-  in `notebooks/03_feature_enrichment.ipynb`.
+- **Feature coverage is low (~7% of plays) and this is a real, verified finding, not a bug**:
+  the Spotify reference dataset (Kaggle) is a fixed stratified sample (114 genres × 1,000 tracks
+  each), not an exhaustive catalog — most Last.fm tracks, including songs by very popular artists,
+  are simply absent from it. An earlier pipeline version reported 52.3% coverage; this was
+  incorrect, caused by a duplicate-row bug (the Spotify file lists each track once per genre tag,
+  which inflated merge match counts). The bug was found, diagnosed, and fixed — the 7% figure is
+  verified two independent ways (pandas merge and raw set-intersection).
+- Fuzzy artist/track matching (rapidfuzz) was built and tested but excluded from the final
+  pipeline: it recovered only ~0.4% additional play coverage, not enough to justify the added
+  complexity and failure surface for a portfolio-scale project.
 
 ## Repo structure
 
