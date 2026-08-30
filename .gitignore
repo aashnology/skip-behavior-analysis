@@ -1,0 +1,20 @@
+# Raw data - too large / not ours to redistribute, document source in README instead
+data/raw/*
+!data/raw/.gitkeep
+
+# Processed data - regenerate from notebooks, don't commit large intermediate files
+data/processed/*
+!data/processed/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_meta
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
