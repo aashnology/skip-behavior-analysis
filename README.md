@@ -32,8 +32,15 @@ Neither dataset is redistributed in this repo — see `data/raw/README.md` for d
 
 ## Findings
 
-*(full behavioral findings to come after EDA/modeling — this section documents the data
-enrichment outcome, which is itself a key finding)*
+Explored skip behavior along three dimensions: session position, time of day, and audio features.
+
+Bug caught mid-analysis: Initial position-in-session analysis grouped only by session_id, which produced a suspicious alternating (zigzag) skip-rate pattern. Investigation revealed session_id is only unique within a user (992 different users shared a single sample session_id), so the naive grouping was stitching together unrelated sessions from hundreds of different people. Fixed by grouping on the composite key (user_id, session_id). Audited Sessions 2–3 for the same issue — confirmed no other computation relied on session_id alone.
+
+The Actual Findings:
+
+Session position: Skip rate climbs steadily the longer a session runs, from ~0.2% at track 1 to a sharp jump for sessions running 20+ tracks. Play volume drops off fast after ~15 tracks, suggesting most sessions are short and the long-tail "marathon" sessions represent a distinct, more skip-prone listening mode.
+Time of day (UTC): Skip rate is highest overnight (hours 0–1) and lowest in the early morning (hours 4–6), roughly a 2x spread. Note: timestamps are UTC, not per-user local time, so this reflects an aggregate mix of timezones rather than any single "midnight" behavior.
+Audio features (7% matched subset): Popularity shows the strongest and most counterintuitive relationship — skip rate roughly doubles from the least to the most popular quartile of tracks. Energy and loudness show the opposite pattern (higher energy/louder = lower skip rate). This may reflect a familiarity effect (well-known tracks get skipped more readily to reach something new), a pattern documented in prior streaming-behavior research, though this dataset can't confirm the mechanism directly. Danceability and acousticness increase with skip rate; tempo shows no meaningful relationship.
 
 Only ~7% of listening events (1,340,422 of 19,150,868 plays; 20,230 unique tracks) could be
 enriched with Spotify audio features via exact artist+track matching. This is a substantially
