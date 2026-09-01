@@ -131,6 +131,7 @@ between train and test by design.
   local time-of-day behavior.
 
 ## Repo structure
+
 data/
 raw/ # downloaded datasets (not committed — see data/raw/README.md)
 processed/ # cleaned/joined intermediate outputs (not committed, regenerate from notebooks)
@@ -148,7 +149,6 @@ Python (pandas, DuckDB), rapidfuzz, scikit-learn, XGBoost, SHAP.
 ## Setup
 
 pip install -r requirements.txt
-
 
 Run notebooks in numeric order (`01` through `06`). Each notebook loads its inputs from
 `data/processed/`; earlier notebooks must be run first to generate these intermediate files.
