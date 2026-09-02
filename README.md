@@ -132,12 +132,18 @@ between train and test by design.
 
 ## Repository Structure
 
-data/
-  raw/          # downloaded datasets (not committed — see data/raw/README.md)
-  processed/    # cleaned/joined intermediate outputs (not committed, regenerate from notebooks)
-models/         # trained model artifacts (not committed, regenerate from notebooks)
-notebooks/      # numbered, one per pipeline stage
-notebooks/outputs/  # exported plots for the writeup
+notebooks/01_data_audit.ipynb           - initial data audit and first-pass sessionization/matching
+notebooks/02_sessionize_and_enrich.ipynb - clean session reconstruction, skip labeling, feature
+                                            enrichment (includes the duplicate-row bug fix)
+notebooks/03_eda.ipynb                   - skip rate by session position, time of day, track features
+notebooks/04_feature_engineering.ipynb   - lag features, rolling skip rate, time encoding,
+                                            leakage-safe historical skip rate
+notebooks/05_modeling.ipynb              - logistic regression + XGBoost, time-based train/test split
+notebooks/06_interpretability.ipynb      - SHAP analysis and engagement-design insights
+notebooks/outputs/                       - exported plots referenced in this README
+PROCESS.md                               - full debugging narrative (the duplicate-row bug and
+                                            how it was caught and verified)
+requirements.txt                         - Python dependencies
 
 ## Stack
 
