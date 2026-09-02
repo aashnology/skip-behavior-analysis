@@ -16,7 +16,7 @@ first 30 seconds), and what does that reveal about engagement patterns and recom
   License: non-commercial research use, per Last.fm terms.
 - **Spotify audio features snapshot** (Kaggle, pre-2024 API deprecation) — track-level audio
   features (danceability, energy, valence, tempo, acousticness, etc.), joined by fuzzy artist/track
-  match. Source: [link TBD once downloaded]
+  match. Source: [Link]([url](https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset))
 
 Neither dataset is redistributed in this repo — see `data/raw/README.md` for download instructions.
 
@@ -129,6 +129,15 @@ between train and test by design.
   limited, as confirmed by the modeling ablation above.
 - Timestamps are UTC; time-of-day findings reflect an aggregate mix of listener timezones, not
   local time-of-day behavior.
+
+## Repository Structure
+
+data/
+  raw/          # downloaded datasets (not committed — see data/raw/README.md)
+  processed/    # cleaned/joined intermediate outputs (not committed, regenerate from notebooks)
+models/         # trained model artifacts (not committed, regenerate from notebooks)
+notebooks/      # numbered, one per pipeline stage
+notebooks/outputs/  # exported plots for the writeup
 
 ## Stack
 
