@@ -130,18 +130,6 @@ between train and test by design.
 - Timestamps are UTC; time-of-day findings reflect an aggregate mix of listener timezones, not
   local time-of-day behavior.
 
-## Repo structure
-
-data/
-raw/ # downloaded datasets (not committed — see data/raw/README.md)
-processed/ # cleaned/joined intermediate outputs (not committed, regenerate from notebooks)
-models/ # trained model artifacts (not committed, regenerate from notebooks)
-notebooks/ # numbered, one per pipeline stage
-src/ # reusable functions imported by notebooks
-reports/
-figures/ # exported plots for the writeup
-
-
 ## Stack
 
 Python (pandas, DuckDB), rapidfuzz, scikit-learn, XGBoost, SHAP.
